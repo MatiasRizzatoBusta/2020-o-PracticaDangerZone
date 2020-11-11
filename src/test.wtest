@@ -1,0 +1,44 @@
+import empleados.*
+import misiones.*
+import equipos.*
+import habilidades.*
+
+
+const kungFu = new Habilidad(nombre = "kung fu")
+const camuflarse = new Habilidad(nombre = "camuflarse")
+const juJitsu = new Habilidad(nombre = "ju Jitsu")
+const manejarAviones = new Habilidad(nombre = "manejar aviones")
+const visionNocturna = new Habilidad(nombre = "vision nocturna")
+const empleado1 = new Empleado(salud = 0,clase = espia,rango = subordinado,habilidades = [kungFu])
+const oficinista6 = new Oficinista()
+const ceroCeroSeis = new Empleado(salud = 100,clase = oficinista6, rango = subordinado,habilidades = [kungFu,camuflarse,juJitsu,manejarAviones],estrellas = 9)
+const jefe1 = new Jefe(subordinados = [empleado1,ceroCeroSeis])
+const ceroCeroSiete = new Empleado(salud = 99,clase = espia,rango = jefe1,habilidades = [juJitsu])
+const equipoSeal = new Equipo(integrantes = [ceroCeroSeis,ceroCeroSiete,empleado1])
+const unaMision = new Mision(listaHNecesarias = [kungFu,camuflarse,juJitsu,manejarAviones],peligrosidad = 60)
+const otraMision = new Mision(listaHNecesarias = [kungFu,camuflarse,juJitsu,manejarAviones,visionNocturna],peligrosidad = 90)
+
+test "un empleado esta incapacitado" {
+
+	assert.that(empleado1.estaIncapacitado())
+
+}
+
+test "un empleado puede usar la habilidad de un subordinado"{
+	assert.that(ceroCeroSiete.puedeUsarHabilidad(manejarAviones))
+}
+
+test "un empleado no puede usar una habilidad"{
+	assert.notThat(empleado1.puedeUsarHabilidad(juJitsu))
+}
+
+test "un empleado no puede realizar una mision"{
+	assert.throwsExceptionWithMessage("No se pudo completar mision",{ceroCeroSiete.completarMision(otraMision)})
+}
+
+test "un equipo puede realizar una mision"{
+	equipoSeal.completarMision(unaMision)
+	assert.equals(10,ceroCeroSeis.estrellas())
+}
+
+
