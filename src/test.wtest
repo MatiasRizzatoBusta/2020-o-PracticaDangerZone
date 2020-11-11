@@ -3,15 +3,13 @@ import misiones.*
 import equipos.*
 import habilidades.*
 
-
 const kungFu = new Habilidad(nombre = "kung fu")
 const camuflarse = new Habilidad(nombre = "camuflarse")
 const juJitsu = new Habilidad(nombre = "ju Jitsu")
 const manejarAviones = new Habilidad(nombre = "manejar aviones")
 const visionNocturna = new Habilidad(nombre = "vision nocturna")
 const empleado1 = new Empleado(salud = 0,clase = espia,rango = subordinado,habilidades = [kungFu])
-const oficinista6 = new Oficinista()
-const ceroCeroSeis = new Empleado(salud = 100,clase = oficinista6, rango = subordinado,habilidades = [kungFu,camuflarse,juJitsu,manejarAviones],estrellas = 9)
+const ceroCeroSeis = new Empleado(salud = 100,clase = oficinista, rango = subordinado,habilidades = [kungFu,camuflarse,juJitsu,manejarAviones],estrellas = 9)
 const jefe1 = new Jefe(subordinados = [empleado1,ceroCeroSeis])
 const ceroCeroSiete = new Empleado(salud = 99,clase = espia,rango = jefe1,habilidades = [juJitsu])
 const equipoSeal = new Equipo(integrantes = [ceroCeroSeis,ceroCeroSiete,empleado1])

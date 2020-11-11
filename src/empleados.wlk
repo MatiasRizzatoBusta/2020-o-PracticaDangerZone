@@ -3,7 +3,7 @@ import habilidades.*
 
 class Empleado {
 	var salud
-	var habilidades = []
+	var habilidades 
 	var clase
 	var rango
 	var  estrellas = 0
@@ -67,13 +67,12 @@ object espia inherits Clase{
 	
 }
 
-class Oficinista inherits Clase{
+object oficinista inherits Clase{
 	override method saludCritica(empleado) = 40 -(5 * empleado.estrellas())
 	
 	override method misionCumplida(mision,empleado){
 		empleado.ganarEstrella()
 	}
-	
 	
 }
 
@@ -87,7 +86,7 @@ class Rango{
 }
 
 class Jefe inherits Rango{
-	var subordinados = []
+	var subordinados
 	
 	override method esJefe() = true
 	
