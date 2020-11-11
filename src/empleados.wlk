@@ -60,8 +60,8 @@ object espia inherits Clase{
 	
 }
 
-object oficinista inherits Clase{
-	var estrellas = 0
+class Oficinista inherits Clase{
+	var estrellas = 0 //lo pongo aca porque solo le importan a el
 	
 	method ganarEstrella(){
 		estrellas += 1
