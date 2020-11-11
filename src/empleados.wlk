@@ -6,17 +6,10 @@ class Empleado {
 	var habilidades 
 	var clase
 	var rango
-	var  estrellas = 0
 	
-	method estrellas() = estrellas
-	
-	method estaIncapacitado() = salud < clase.saludCritica(self)
+	method estaIncapacitado() = salud < clase.saludCritica()
 	
 	method habilidades() = habilidades
-	
-	method ganarEstrella(){
-		estrellas += 1
-	}
 	
 	method puedeUsarHabilidad(habilidad){
 		if(not(self.estaIncapacitado())){
@@ -51,14 +44,14 @@ class Empleado {
 }
 
 class Clase{ // no hago que hereden de empleado como antes pq el completar mision es igual para ambos salvo por el mision cumplida
-	method saludCritica(empleado)
+	method saludCritica()
 	
 	method misionCumplida(mision,empleado)
 }
 
 object espia inherits Clase{
 	
-	override method saludCritica(empleado) = 15
+	override method saludCritica() = 15
 	
 	override method misionCumplida(mision,empleado){
 		mision.listaHNecesarias().forEach({habilidad => empleado.aprenderHabilidad(habilidad)})
@@ -68,7 +61,13 @@ object espia inherits Clase{
 }
 
 object oficinista inherits Clase{
-	override method saludCritica(empleado) = 40 -(5 * empleado.estrellas())
+	var estrellas = 0
+	
+	method ganarEstrella(){
+		estrellas += 1
+	}
+		
+	override method saludCritica() = 40 -(5 * estrellas)
 	
 	override method misionCumplida(mision,empleado){
 		empleado.ganarEstrella()
