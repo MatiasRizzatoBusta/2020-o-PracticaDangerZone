@@ -10,12 +10,11 @@ class Mision {
 	
 	method daniar(empleado) = empleado.reducirSalud(peligrosidad)
 	
-	method daniarEquipo(empleado) = empleado.reducirSalud(peligrosidad/3)
-	
 	method tieneHabilidades(empleado) = listaHNecesarias.all({habilidad => empleado.puedeUsarHabilidad(habilidad)})
 	
 	method irEnMision(alguien){
 		if(alguien.puedeCompletarMision(self)){
+			self.daniar(alguien)
 			alguien.hacerMision(self)
 			}else{
 			self.error("No se pudo completar mision")

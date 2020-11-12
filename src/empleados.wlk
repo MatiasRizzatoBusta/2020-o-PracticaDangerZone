@@ -20,7 +20,7 @@ class Empleado {
 	}
 	
 	method reducirSalud(danio){
-		salud -= danio
+		salud = 0.max(salud -danio)
 	}
 	
 	method tieneHabilidad(habilidadRequerida) = habilidades.contains(habilidadRequerida) 	
@@ -28,10 +28,6 @@ class Empleado {
 	method aprenderHabilidad(habilidad) = habilidades.add(habilidad)
 	
 	method sobrevivio() = salud > 0
-	
-	method recibirDanio(danio){
-		salud = 0.max(salud -danio)
-	}
 	
 	method puedeCompletarMision(mision) = mision.tieneHabilidades(self)
 	

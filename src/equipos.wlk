@@ -11,6 +11,8 @@ class Equipo {
 	
 	method supervivientes() = integrantes.filter({integrante => integrante.sobrevivio()})
 	
+	method reducirSalud(peligrosidad) = integrantes.forEach({integrante => integrante.reducirSalud(peligrosidad/3)})
+	
 	method hacerMision(mision){
 		if(self.sobrevivio()){
 			self.terminarMision(mision)
