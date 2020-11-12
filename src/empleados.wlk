@@ -3,7 +3,7 @@ import habilidades.*
 
 class Empleado {
 	var salud
-	var habilidades 
+	var habilidades = []
 	var clase
 	var rango
 	
@@ -19,9 +19,11 @@ class Empleado {
 		}
 	}
 	
-	method tieneHabilidad(habilidadRequerida) = habilidades.contains(habilidadRequerida) 
+	method reducirSalud(danio){
+		salud -= danio
+	}
 	
-	method puedeCompletarMision(listaHNecesarias) =	listaHNecesarias.all({habilidad => rango.poseeHabilidad(habilidad,self)})
+	method tieneHabilidad(habilidadRequerida) = habilidades.contains(habilidadRequerida) 	
 	
 	method aprenderHabilidad(habilidad) = habilidades.add(habilidad)
 	
@@ -31,16 +33,20 @@ class Empleado {
 		salud = 0.max(salud -danio)
 	}
 	
-	method completarMision(mision){
-		if(self.puedeCompletarMision(mision.listaHNecesarias())){
-			self.recibirDanio(mision.peligrosidad())
-			if(self.sobrevivio()){
-				clase.misionCumplida(mision,self)
-			}
-		}else{
-			self.error("No se pudo completar mision")
+	method puedeCompletarMision(mision) = mision.tieneHabilidades(self)
+	
+	method hacerMision(mision){
+		if(self.sobrevivio()){
+			self.terminarMision(mision)
 		}
 	}
+	
+	method terminarMision(mision){
+		clase.misionCumplida(mision,self)
+		
+	}
+	
+
 }
 
 class Clase{ // no hago que hereden de empleado como antes pq el completar mision es igual para ambos salvo por el mision cumplida
@@ -66,11 +72,13 @@ class Oficinista inherits Clase{
 	method ganarEstrella(){
 		estrellas += 1
 	}
+	
+	method estrellas() = estrellas
 		
 	override method saludCritica() = 40 -(5 * estrellas)
 	
 	override method misionCumplida(mision,empleado){
-		empleado.ganarEstrella()
+		self.ganarEstrella()
 	}
 	
 }
@@ -84,7 +92,8 @@ class Rango{
 	method poseeHabilidad(habilidad,empleado) = empleado.tieneHabilidad(habilidad)
 }
 
-class Jefe inherits Rango{
+class Jefe inherits Rango{ // podria haber hecho que el jefe herede de empleado
+							// en el diagrama falta hacer que e 
 	var subordinados
 	
 	override method esJefe() = true

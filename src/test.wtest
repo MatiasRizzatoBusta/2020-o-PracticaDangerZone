@@ -32,12 +32,12 @@ test "un empleado no puede usar una habilidad"{
 }
 
 test "un empleado no puede realizar una mision"{
-	assert.throwsExceptionWithMessage("No se pudo completar mision",{ceroCeroSiete.completarMision(otraMision)})
+	assert.throwsExceptionWithMessage("No se pudo completar mision",{otraMision.irEnMision(ceroCeroSiete)})
 }
 
 test "un equipo puede realizar una mision"{
-	equipoSeal.completarMision(unaMision)
-	assert.equals(10,ceroCeroSeis.estrellas())
+	unaMision.irEnMision(equipoSeal)
+	assert.equals(10,oficinista6.estrellas())
 }
 
 

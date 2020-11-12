@@ -5,17 +5,21 @@ import habilidades.*
 class Equipo {
 	var integrantes = []
 	
-	method algunoPuedeCompletar(listaHNecesarias) = integrantes.any({integrante => integrante.puedeCompletarMision(listaHNecesarias)})
+	method puedeCompletarMision(mision) = integrantes.any({integrante => mision.tieneHabilidades(integrante)})
+	
+	method sobrevivio() = integrantes.any({integrante => integrante.sobrevivio()})
 	
 	method supervivientes() = integrantes.filter({integrante => integrante.sobrevivio()})
 	
-	method completarMision(mision){
-		if(self.algunoPuedeCompletar(mision.listaHNecesarias())){
-			const tercioDeDanio = mision.peligrosidad() / 3
-			integrantes.forEach({integrante => integrante.recibirDanio(tercioDeDanio)})
-			self.supervivientes().forEach({superviviente => superviviente.completarMision(mision)})
-			
+	method hacerMision(mision){
+		if(self.sobrevivio()){
+			self.terminarMision(mision)
 		}
 	}
+	
+	method terminarMision(mision){
+		self.supervivientes().forEach({superviviente => superviviente.terminarMision(mision)})
+		
+		}
 	
 }
